@@ -1,12 +1,19 @@
-from django.shortcuts import render, redirect
-
+from django.shortcuts import render, redirect, get_object_or_404
 from cocktails.models import Cocktail, CocktailForm
-from django.shortcuts import get_object_or_404
+from django.db.models import Q
 
-# List all cocktails
+# List cocktails with search functionality
 def cocktail_list(request):
+    query = request.GET.get("q", "")
     cocktails = Cocktail.objects.all()
-    return render(request, 'cocktail_list.html', {'cocktails': cocktails})
+
+    if query:
+        cocktails = cocktails.filter(
+            Q(name__icontains=query) |
+            Q(category__icontains=query)
+        )
+
+    return render(request, "cocktail_list.html", {"cocktails": cocktails, "query": query})
 
 # View cocktail details
 def cocktail_detail(request, cocktail_id):
