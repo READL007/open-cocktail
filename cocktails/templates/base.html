@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Open Cocktail</title>
+</head>
+<body>
+    <nav>
+        <a href="{% url 'cocktail_list' %}">Home</a> |
+        <a href="{% url 'create_cocktail' %}">New Cocktail</a> |
+    </nav>
+    <hr>
+    {% block content %}{% endblock %}
+</body>
+</html>

@@ -1,11 +1,15 @@
-<!--List of cocktails-->
+{% extends "base.html" %}
+
 {% block content %}
-<h1>Liste des Cocktails</h1>
-{% for cocktail in cocktails %}
-    <div>
-        <h2><a href="{% url 'cocktail_detail' cocktail.id %}">{{ cocktail.name }}</a></h2>
-    </div>
-{% empty %}
-    <p>Aucun cocktail trouvé.</p>
-{% endfor %}
+<h1>List of Cocktails</h1>
+<ul>
+  {% for cocktail in cocktails %}
+    <li>
+      <a href="{% url 'cocktail_detail' cocktail.id %}">{{ cocktail.name }}</a>
+      ({{ cocktail.category }})
+    </li>
+  {% empty %}
+    <li>No cocktails found.</li>
+  {% endfor %}
+</ul>
 {% endblock %}

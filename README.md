@@ -20,10 +20,12 @@ Activate python env
 python3 -m venv djangoEnv
 source djangoEnv/bin/activate
 ```
+
 Run migrations
 ```
 python manage.py migrate
 ```
+
 
 Start server
 ```

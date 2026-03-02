@@ -1,15 +1,17 @@
-<div>
-    <h1> {{ cocktail.name }} </h1>
-    <p>{{ cocktail.category }}</p>
-    <p>{{ cocktail.difficulty }}</p>
-    <p>{{ cocktail.preparation_time }}</p>
-    <p>{{ cocktail.servings }}</p>
-    <h2>Ingrédients</h2>
-    <ul>
-    {% for ingredient in cocktail.ingredients.all %}
-        <li>{{ ingredient.name }} - {{ ingredient.quantity }}</li>
-    {% endfor %}
-    <ul>
-    <p>{{ cocktail.ustensils }}</p>
-    <h2>Instructions</h2>
-    <p>{{ cocktail.steps }}</p>
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ cocktail.name }}</h1>
+
+<p><strong>Category:</strong> {{ cocktail.category }}</p>
+<p><strong>Difficulty:</strong> {{ cocktail.difficulty }}</p>
+<p><strong>Preparation time:</strong> {{ cocktail.preparation_time }} minutes</p>
+<p><strong>Servings:</strong> {{ cocktail.servings }}</p>
+<p><strong>Ustensils:</strong> {{ cocktail.ustensils }}</p>
+<p><strong>Ingredients:</strong></p>
+<p>{{ cocktail.ingredients }}</p>
+<p><strong>Steps:</strong></p>
+<p>{{ cocktail.steps }}</p>
+
+<p><a href="{% url 'cocktail_list' %}">← Back to list</a></p>
+{% endblock %}

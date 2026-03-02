@@ -1,4 +1,5 @@
 from django.db import models
+from django import forms
 
 # Cocktail model with name, category, preparation time, ingredients, steps, number of servings, difficulty, ustensils
 class Cocktail(models.Model):
@@ -25,3 +26,12 @@ class Cocktail(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class CocktailForm(forms.ModelForm):
+    class Meta:
+        model = Cocktail
+        fields = [
+            'name', 'category', 'preparation_time', 'ingredients',
+            'steps', 'servings', 'difficulty', 'ustensils'
+        ]
