@@ -1,0 +1,15 @@
+<div>
+    <h1> {{ cocktail.name }} </h1>
+    <p>{{ cocktail.category }}</p>
+    <p>{{ cocktail.difficulty }}</p>
+    <p>{{ cocktail.preparation_time }}</p>
+    <p>{{ cocktail.servings }}</p>
+    <h2>Ingrédients</h2>
+    <ul>
+    {% for ingredient in cocktail.ingredients.all %}
+        <li>{{ ingredient.name }} - {{ ingredient.quantity }}</li>
+    {% endfor %}
+    <ul>
+    <p>{{ cocktail.ustensils }}</p>
+    <h2>Instructions</h2>
+    <p>{{ cocktail.steps }}</p>
