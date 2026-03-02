@@ -23,6 +23,7 @@ class Cocktail(models.Model):
     servings = models.IntegerField()
     difficulty = models.CharField(max_length=20, choices=DIFFICULTY)
     ustensils = models.TextField()
+    image= models.ImageField(upload_to="cocktails/", null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -31,7 +32,4 @@ class Cocktail(models.Model):
 class CocktailForm(forms.ModelForm):
     class Meta:
         model = Cocktail
-        fields = [
-            'name', 'category', 'preparation_time', 'ingredients',
-            'steps', 'servings', 'difficulty', 'ustensils'
-        ]
+        fields = '__all__'

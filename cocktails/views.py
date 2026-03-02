@@ -13,9 +13,10 @@ def cocktail_detail(request, cocktail_id):
     cocktail = get_object_or_404(Cocktail, pk=cocktail_id)
     return render(request, 'cocktail_detail.html', {'cocktail': cocktail})
 
+# Create a new cocktail
 def create_cocktail(request):
     if request.method == 'POST':
-        form = CocktailForm(request.POST)
+        form = CocktailForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('cocktail_list')
