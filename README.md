@@ -15,6 +15,11 @@ Every cocktail have a type, it can be:
 - Search for recipes by name or category.
 
 ## Run app
+### FRONT
+```
+cd django
+```
+
 Activate python env
 ```
 python3 -m venv djangoEnv
@@ -33,3 +38,14 @@ python manage.py runserver
 ```
 
 Visit http://127.0.0.1:8000 
+
+### BACK
+```
+cd express
+```
+
+Run server and seeder
+```
+npm run serve
+npm run seed
+```
