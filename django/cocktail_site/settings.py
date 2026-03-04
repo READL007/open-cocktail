@@ -122,3 +122,6 @@ STATIC_URL = 'static/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+EXPRESS_API_URL = "http://localhost:3000/api"
+EXPRESS_MEDIA_URL = "http://localhost:3000/"

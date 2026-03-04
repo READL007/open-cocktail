@@ -2,8 +2,9 @@
 
 {% block content %}
 <h1>{{ cocktail.name }}</h1>
+
 {% if cocktail.image %}
-    <img src="{{ cocktail.image.url }}" alt="{{ cocktail.name }}" style="max-width:300px;">
+  <img src="http://localhost:3000/{{ cocktail.image }}" alt="{{ cocktail.name }}">
 {% endif %}
 
 
