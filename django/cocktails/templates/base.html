@@ -8,6 +8,12 @@
     <nav>
         <a href="{% url 'cocktail_list' %}">Home</a> |
         <a href="{% url 'create_cocktail' %}">New Cocktail</a> |
+        {% if user.is_authenticated %}
+        <span>Hello</span>
+        <a href="{% url 'oidc_logout' %}">Logout</a>
+        {% else %}
+        <a href="{% url 'oidc_authentication_init' %}">Login with Keycloak</a>
+        {% endif %}
     </nav>
     <hr>
     {% block content %}{% endblock %}

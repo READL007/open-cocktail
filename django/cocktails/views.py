@@ -2,6 +2,8 @@ import requests
 from django.shortcuts import render, redirect
 from django.conf import settings
 from cocktails.models import CocktailForm
+from mozilla_django_oidc.views import OIDCAuthenticationRequestView
+from django.contrib.auth.decorators import login_required
 
 API_URL = settings.EXPRESS_API_URL
 
@@ -42,16 +44,13 @@ def cocktail_detail(request, cocktail_id):
 
     return render(request, "cocktail_detail.html", {"cocktail": cocktail})
 
-
-# Create a new cocktail
+@login_required  
 def create_cocktail(request):
     if request.method == "POST":
         form = CocktailForm(request.POST, request.FILES)
         if form.is_valid():
             data = form.cleaned_data
             files = {}
-
-            # Handle image upload
             if "image" in request.FILES:
                 image = request.FILES["image"]
                 files["image"] = (image.name, image.read(), image.content_type)
@@ -63,6 +62,7 @@ def create_cocktail(request):
                     f"{API_URL}/cocktails",
                     data=payload,
                     files=files if files else None,
+                    headers=get_auth_header(request),  # 👈 add this
                 )
                 response.raise_for_status()
                 return redirect("cocktail_list")
@@ -70,5 +70,5 @@ def create_cocktail(request):
                 form.add_error(None, f"Could not save cocktail: {e}")
     else:
         form = CocktailForm()
-
     return render(request, "create_cocktail.html", {"form": form})
+

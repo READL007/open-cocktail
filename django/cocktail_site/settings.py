@@ -11,7 +11,10 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv
 import os
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'cocktails.apps.CocktailsConfig',
+    'mozilla_django_oidc',
 ]
 
 MIDDLEWARE = [
@@ -118,10 +122,28 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-
+AUTHENTICATION_BACKENDS = [
+    'cocktails.oidc.KeycloakOIDCBackend',
+]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 EXPRESS_API_URL = "http://localhost:3000/api"
 EXPRESS_MEDIA_URL = "http://localhost:3000/"
+
+# Keycloak OIDC settings
+OIDC_RP_CLIENT_ID = os.getenv("KEYCLOAK_CLIENT_ID")  # from Keycloak client settings
+OIDC_RP_CLIENT_SECRET = os.getenv("KEYCLOAK_CLIENT_SECRET")    
+OIDC_RP_SIGN_ALGO = "RS256"
+
+KEYCLOAK_URL = os.getenv("KEYCLOAK_URL")
+KEYCLOAK_REALM = os.getenv("KEYCLOAK_REALM")
+
+OIDC_OP_JWKS_ENDPOINT       = f"{KEYCLOAK_URL}/realms/{KEYCLOAK_REALM}/protocol/openid-connect/certs"
+OIDC_OP_AUTHORIZATION_ENDPOINT = f"{KEYCLOAK_URL}/realms/{KEYCLOAK_REALM}/protocol/openid-connect/auth"
+OIDC_OP_TOKEN_ENDPOINT      = f"{KEYCLOAK_URL}/realms/{KEYCLOAK_REALM}/protocol/openid-connect/token"
+OIDC_OP_USER_ENDPOINT       = f"{KEYCLOAK_URL}/realms/{KEYCLOAK_REALM}/protocol/openid-connect/userinfo"
+
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"

@@ -46,6 +46,6 @@ cd express
 
 Run server and seeder
 ```
-npm run serve
+npm run dev
 npm run seed
 ```
