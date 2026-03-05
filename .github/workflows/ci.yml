@@ -58,7 +58,6 @@ jobs:
         run: snyk auth "$SNYK_TOKEN"
 
       - name: Run Snyk test
-        working-directory: backend
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: snyk test --file=requirements.txt --package-manager=pip
