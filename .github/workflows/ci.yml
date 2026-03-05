@@ -22,14 +22,21 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+      - name: Install Node.js dependencies
+        run: npm install
 
-      - name: Run Snyk (Node)
-        uses: snyk/actions/node@master
-        continue-on-error: true   
+      - name: Install Snyk CLI
+        uses: snyk/actions/setup@master
+
+      - name: Authenticate Snyk
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: --severity-threshold=high
+        run: snyk auth "$SNYK_TOKEN"
+
+      - name: Run Snyk test
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: snyk test --file=package.json --package-manager=npm
 
   scan-python:
     name: Scan Python dependencies (Django)
