@@ -37,7 +37,7 @@ jobs:
     defaults:
       run:
         working-directory: ./django
-     steps:
+    steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
